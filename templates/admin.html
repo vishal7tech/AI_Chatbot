@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Rules | RuleBot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        body { background: #f8f9fa; }
+        .chat-container { max-width: 900px; }
+        h2 { background: #343a40; }
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin: 20px 0;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        button:hover { background: #218838; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #007bff;
+            color: white;
+        }
+        td[contenteditable="true"] {
+            background: #fff3cd;
+            cursor: text;
+        }
+        td[contenteditable="true"]:focus {
+            outline: 2px solid #007bff;
+        }
+        .actions button {
+            margin-right: 6px;
+            padding: 6px 12px;
+            font-size: 0.9rem;
+        }
+        .delete-btn { background: #dc3545; }
+        .delete-btn:hover { background: #c82333; }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin: 30px 0;
+            font-size: 1.1rem;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Admin Panel – Manage Rules</h2>
+
+        <div class="form-container">
+            <h3>Add New Rule</h3>
+            <input id="pattern" placeholder="Pattern (e.g. hi, fees, book, exam)" autocomplete="off">
+            <textarea id="response" placeholder="Bot will reply with this..." rows="3"></textarea>
+            <button onclick="addRule()">Add Rule</button>
+        </div>
+
+        <h3>All Rules</h3>
+        <table id="rules-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Pattern</th>
+                    <th>Response</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <a href="/" class="back-link">← Go to Chat</a>
+    </div>
+
+    <script>
+        function loadRules() {
+            fetch('/admin/rules')
+                .then(res => res.json())
+                .then(rules => {
+                    const tbody = document.querySelector('#rules-table tbody');
+                    tbody.innerHTML = '';
+                    rules.forEach(rule => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${rule.id}</td>
+                            <td contenteditable="true" id="pattern-${rule.id}">${rule.pattern}</td>
+                            <td contenteditable="true" id="response-${rule.id}">${rule.response}</td>
+                            <td class="actions">
+                                <button onclick="updateRule(${rule.id})">Save Edit</button>
+                                <button class="delete-btn" onclick="deleteRule(${rule.id})">Delete</button>
+                            </td>`;
+                        tbody.appendChild(tr);
+                    });
+                })
+                .catch(err => console.error("Load rules failed:", err));
+        }
+
+        function addRule() {
+            const pattern = document.getElementById('pattern').value.trim();
+            const response = document.getElementById('response').value.trim();
+
+            if (!pattern || !response) {
+                alert("Please fill both Pattern and Response");
+                return;
+            }
+
+            fetch('/admin/rules', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pattern, response })
+            })
+            .then(res => {
+                if (!res.ok) throw new Error("Add failed");
+                return res.json();
+            })
+            .then(() => {
+                loadRules();
+                document.getElementById('pattern').value = '';
+                document.getElementById('response').value = '';
+            })
+            .catch(err => alert("Error adding rule: " + err.message));
+        }
+
+        function updateRule(id) {
+            const pattern = document.getElementById(`pattern-${id}`).textContent.trim();
+            const response = document.getElementById(`response-${id}`).textContent.trim();
+
+            fetch(`/admin/rules/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pattern, response })
+            })
+            .then(res => {
+                if (!res.ok) throw new Error("Update failed");
+                alert("Rule updated successfully!");
+            })
+            .catch(err => alert("Error updating: " + err.message));
+        }
+
+        function deleteRule(id) {
+            if (!confirm("Really delete this rule?")) return;
+
+            fetch(`/admin/rules/${id}`, { method: 'DELETE' })
+                .then(res => {
+                    if (!res.ok) throw new Error("Delete failed");
+                    loadRules();
+                })
+                .catch(err => alert("Error deleting: " + err.message));
+        }
+
+        // Load rules when page opens
+        window.onload = loadRules;
+    </script>
+</body>
+</html>

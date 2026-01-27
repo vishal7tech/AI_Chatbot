@@ -1,0 +1,229 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.44 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2025, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DATABASE' at line 1
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| chatbot_db         |
+| hms                |
+| hms_db             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> USE chatbot_db;
+Database changed
+mysql> CREATE TABLE rules (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     pattern VARCHAR(255) NOT NULL,
+    ->     response TEXT NOT NULL
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> CREATE TABLE chat_logs (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     user_message TEXT NOT NULL,
+    ->     bot_response TEXT NOT NULL,
+    ->     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+    -> );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> USE chatbot_db;
+Database changed
+mysql>
+mysql> CREATE TABLE rules (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     pattern VARCHAR(255) NOT NULL,
+    ->     response TEXT NOT NULL
+    -> );
+ERROR 1050 (42S01): Table 'rules' already exists
+mysql>
+mysql> CREATE TABLE chat_logs (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     user_message TEXT NOT NULL,
+    ->     bot_response TEXT NOT NULL,
+    ->     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+    -> );
+ERROR 1050 (42S01): Table 'chat_logs' already exists
+mysql> USE chatbot_db;
+Database changed
+mysql>
+mysql> CREATE TABLE rules (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     pattern VARCHAR(255) NOT NULL,
+    ->     response TEXT NOT NULL
+    -> );
+ERROR 1050 (42S01): Table 'rules' already exists
+mysql>
+mysql> CREATE TABLE chat_logs (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     user_message TEXT NOT NULL,
+    ->     bot_response TEXT NOT NULL,
+    ->     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+    ->
+    ->
+    -> );
+ERROR 1050 (42S01): Table 'chat_logs' already exists
+mysql> USE chatbot;
+ERROR 1049 (42000): Unknown database 'chatbot'
+mysql> USE chatbot_bot;
+ERROR 1049 (42000): Unknown database 'chatbot_bot'
+mysql> USE chatbot_db;
+Database changed
+mysql> USE chatbot_db;
+Database changed
+mysql>
+mysql> CREATE TABLE rules (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     pattern VARCHAR(255) NOT NULL,
+    ->     response TEXT NOT NULL
+    -> );
+ERROR 1050 (42S01): Table 'rules' already exists
+mysql>
+mysql> CREATE TABLE chat_logs (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     user_message TEXT NOT NULL,
+    ->     bot_response TEXT NOT NULL,
+    ->     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+    -> );
+ERROR 1050 (42S01): Table 'chat_logs' already exists
+mysql> SHOW TABLES;
++----------------------+
+| Tables_in_chatbot_db |
++----------------------+
+| chat_logs            |
+| rules                |
++----------------------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO rules (pattern, response) VALUES
+    -> ('hi', 'Hello! Kaise ho aap? 😊'),
+    -> ('hello', 'Hi there! Kya help chahiye aaj?'),
+    -> ('fees', 'Our course fees are ₹5000 per semester. Want details about installments?'),
+    -> ('appointment', 'To book an appointment, call 1234567890 or reply "book now".'),
+    -> ('bye', 'Bye! Take care and come back soon! 👋'),
+    -> ('default', 'Sorry, mujhe samajh nahi aaya. Try saying: hi, fees, appointment, bye');
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM rules;
++----+-------------+--------------------------------------------------------------------------+
+| id | pattern     | response                                                                 |
++----+-------------+--------------------------------------------------------------------------+
+|  1 | hi          | Hello! Kaise ho aap? ?                                                   |
+|  2 | hello       | Hi there! Kya help chahiye aaj?                                          |
+|  3 | fees        | Our course fees are ?5000 per semester. Want details about installments? |
+|  4 | appointment | To book an appointment, call 1234567890 or reply "book now".             |
+|  5 | bye         | Bye! Take care and come back soon! ?                                     |
+|  6 | default     | Sorry, mujhe samajh nahi aaya. Try saying: hi, fees, appointment, bye    |
++----+-------------+--------------------------------------------------------------------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM rules;
++----+-------------+--------------------------------------------------------------------------+
+| id | pattern     | response                                                                 |
++----+-------------+--------------------------------------------------------------------------+
+|  1 | hi          | Hello! Kaise ho aap? ?                                                   |
+|  2 | hello       | Hi there! Kya help chahiye aaj?                                          |
+|  3 | fees        | Our course fees are ?5000 per semester. Want details about installments? |
+|  4 | appointment | To book an appointment, call 1234567890 or reply "book now".             |
+|  5 | bye         | Bye! Take care and come back soon! ?                                     |
+|  6 | default     | Sorry, mujhe samajh nahi aaya. Try saying: hi, fees, appointment, bye    |
+|  7 | google      | Hi,google                                                                |
++----+-------------+--------------------------------------------------------------------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM rules WHERE pattern = 'default';
++----+---------+-----------------------------------------------------------------------+
+| id | pattern | response                                                              |
++----+---------+-----------------------------------------------------------------------+
+|  6 | default | Sorry, mujhe samajh nahi aaya. Try saying: hi, fees, appointment, bye |
++----+---------+-----------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| chatbot_db         |
+| hms                |
+| hms_db             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+9 rows in set (0.02 sec)
+
+mysql>  SHOW TABLES;
++----------------------+
+| Tables_in_chatbot_db |
++----------------------+
+| chat_logs            |
+| rules                |
++----------------------+
+2 rows in set (0.01 sec)
+
+mysql> show chat_logs;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'chat_logs' at line 1
+mysql> select *from chat_logs;
++----+--------------+-----------------------------------------------------------------------+---------------------+
+| id | user_message | bot_response                                                          | timestamp           |
++----+--------------+-----------------------------------------------------------------------+---------------------+
+|  1 | hi           | Hello! Kaise ho aap? ?                                                | 2026-01-27 14:41:14 |
+|  2 | google       | Hi,google                                                             | 2026-01-27 14:41:30 |
+|  3 | hii          | Hello! Kaise ho aap? ?                                                | 2026-01-27 14:56:19 |
+|  4 | hi           | Hello! Kaise ho aap? ?                                                | 2026-01-27 14:56:22 |
+|  5 | google       | Hi,google                                                             | 2026-01-27 14:56:31 |
+|  6 | yash         | hi,yash gahane                                                        | 2026-01-27 14:57:26 |
+|  7 | vishal       | Sorry, mujhe samajh nahi aaya. Try saying: hi, fees, appointment, bye | 2026-01-27 14:58:00 |
+|  8 | vishal       | vishal chaudhari                                                      | 2026-01-27 14:58:26 |
+|  9 | vidya        | hii vidya co-founder of millits now                                   | 2026-01-27 15:01:26 |
+| 10 | vidya        | hii vidya co-founder of millits now                                   | 2026-01-27 15:02:07 |
+| 11 | yash         | hi,yash gahane                                                        | 2026-01-27 15:02:09 |
+| 12 | laptop       | hi,Lappy                                                              | 2026-01-27 15:10:09 |
+| 13 | laptop       | hi,Lappy                                                              | 2026-01-27 15:11:25 |
+| 14 | laptop       | Sorry, mujhe samajh nahi aaya. Try saying: hi, fees, appointment, bye | 2026-01-27 15:11:37 |
+| 15 | HI           | Hello! Kaise ho aap? ?                                                | 2026-01-27 15:24:12 |
++----+--------------+-----------------------------------------------------------------------+---------------------+
+15 rows in set (0.00 sec)
+
+mysql> select *from rules;
++----+-------------+--------------------------------------------------------------------------+
+| id | pattern     | response                                                                 |
++----+-------------+--------------------------------------------------------------------------+
+|  1 | hi          | Hello! Kaise ho aap? ?                                                   |
+|  2 | hello       | Hi there! Kya help chahiye aaj?                                          |
+|  3 | fees        | Our course fees are ?5000 per semester. Want details about installments? |
+|  4 | appointment | To book an appointment, call 1234567890 or reply "book now".             |
+|  5 | bye         | Bye! Take care and come back soon! ?                                     |
+|  6 | default     | Sorry, mujhe samajh nahi aaya. Try saying: hi, fees, appointment, bye    |
+|  7 | google      | Hi,google                                                                |
+|  8 | yash        | hi,yash gahane                                                           |
+|  9 | vishal      | vishal chaudhari                                                         |
+| 10 | vidya       | hii vidya co-founder of millits now                                      |
++----+-------------+--------------------------------------------------------------------------+
+10 rows in set (0.00 sec)
+
+mysql>
