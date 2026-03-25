@@ -8,6 +8,33 @@ from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+import random
+from nltk.corpus import stopwords
+from tensorflow.keras.models import load_model, Sequential
+from tensorflow.keras.layers import Dense, Dropout, Input
+from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.utils import to_categorical
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
+import joblib
+import threading
+
+# Global model variables
+model = None
+vectorizer = None
+label_encoder = None
+
+def load_local_models():
+    global model, vectorizer, label_encoder
+    try:
+        model = load_model('intent_model.h5')
+        vectorizer = joblib.load('vectorizer.pkl')
+        label_encoder = joblib.load('label_encoder.pkl')
+        print("NLP Models loaded successfully from disk!")
+    except Exception as e:
+        print(f"Warning: NLP models not found or failed to load: {e}")
+
+load_local_models()
 
 # ────────────────────────────────────────────────
 #          1. Helper Functions – FIRST
@@ -15,10 +42,10 @@ import numpy as np
 
 def get_db_connection():
     return mysql.connector.connect(
-        host=os.getenv('DB_HOST'),
-        user=os.getenv('DB_USER'),
-        password=os.getenv('DB_PASSWORD'),
-        database=os.getenv('DB_NAME')
+        host=os.getenv('DB_HOST', 'localhost'),
+        user=os.getenv('DB_USER', 'root'),
+        password=os.getenv('DB_PASSWORD', 'Vishal@74'),
+        database=os.getenv('DB_NAME', 'chatbot_db')
     )
 
 # ────────────────────────────────────────────────
@@ -26,64 +53,116 @@ def get_db_connection():
 # ────────────────────────────────────────────────
 
 lemmatizer = WordNetLemmatizer()
-intents = []
-flat_patterns = []
-vectorizer = None
-X = None
+stop_words = set(stopwords.words('english'))
 
 def clean_text(text):
     text = text.lower()
     tokens = nltk.word_tokenize(text)
-    tokens = [lemmatizer.lemmatize(word) for word in tokens if word.isalnum()]
+    # Enhanced stopwords with Indian English
+    custom_stopwords = {'hai', 'hain', 'ho', 'ki', 'ko', 'ke', 'ka', 'bhi', 'mein', 'par', 'aur', 'lekin', 'kyunki'}
+    all_stopwords = stop_words.union(custom_stopwords)
+    tokens = [lemmatizer.lemmatize(word) for word in tokens if word.isalnum() and word not in all_stopwords]
     return ' '.join(tokens)
 
 def reload_nlp_model():
-    global intents, flat_patterns, vectorizer, X
-    
+    # Only reload the files from disk, don't refit
+    load_local_models()
+
+def train_model_thread():
     try:
-        conn = get_db_connection()           # now safe – function already defined
+        print("Starting AI model training...")
+        conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
         
-        # Load intents
-        cursor.execute("SELECT * FROM intents")
+        # Load intents & patterns
+        cursor.execute("SELECT id, tag FROM intents")
         intents_data = cursor.fetchall()
-        intents_dict = {row['id']: {'tag': row['tag'], 'response': row['response'], 'patterns': []} for row in intents_data}
         
-        # Load patterns
-        cursor.execute("SELECT * FROM patterns")
-        for row in cursor.fetchall():
-            if row['intent_id'] in intents_dict:
-                intents_dict[row['intent_id']]['patterns'].append(row['pattern'])
-        
-        intents = list(intents_dict.values())
-        
-        # Build flat list for TF-IDF
-        flat_patterns = []
-        for intent in intents:
-            for pattern in intent['patterns']:
-                flat_patterns.append({'intent': intent, 'pattern': pattern})
-        
-        if not flat_patterns:
-            print("Warning: No patterns found!")
-            cursor.close()
-            conn.close()
-            return
-        
-        # Preprocess corpus
-        corpus = [clean_text(fp['pattern']) for fp in flat_patterns]
-        
-        vectorizer = TfidfVectorizer()
-        vectorizer.fit(corpus)
-        X = vectorizer.transform(corpus)
-        
+        patterns = []
+        labels = []
+        for intent in intents_data:
+            cursor.execute("SELECT pattern FROM patterns WHERE intent_id = %s", (intent['id'],))
+            intent_patterns = cursor.fetchall()
+            for p in intent_patterns:
+                patterns.append(p['pattern'])
+                labels.append(intent['tag'])
+                
         cursor.close()
         conn.close()
-        print("NLP Model reloaded successfully!")
         
-    except Error as e:
-        print(f"Database error during reload: {e}")
+        if not patterns:
+            print("No patterns found for training.")
+            return
+            
+        cleaned_patterns = [clean_text(p) for p in patterns]
+        
+        # Enhanced vectorizer with better parameters
+        new_vectorizer = TfidfVectorizer(
+            max_features=1000,
+            ngram_range=(1, 2),
+            min_df=1,
+            max_df=0.95,
+            sublinear_tf=True
+        )
+        X = new_vectorizer.fit_transform(cleaned_patterns).toarray()
+        
+        new_label_encoder = LabelEncoder()
+        y = new_label_encoder.fit_transform(labels)
+        y_cat = to_categorical(y)
+        
+        if len(y_cat[0]) == 0 or len(X[0]) == 0:
+            print("Insufficient data for training.")
+            return
+            
+        # Enhanced model architecture
+        # Split for validation
+        X_train, X_val, y_train, y_val = train_test_split(
+            X, y_cat, test_size=0.2, random_state=42, stratify=y
+        )
+        
+        # Build enhanced model
+        new_model = Sequential([
+            Input(shape=(X_train.shape[1],)),
+            Dense(128, activation='relu'),
+            Dropout(0.5),
+            Dense(64, activation='relu'),
+            Dropout(0.4),
+            Dense(32, activation='relu'),
+            Dropout(0.3),
+            Dense(y_train.shape[1], activation='softmax')
+        ])
+        
+        new_model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+        
+        # Early stopping
+        early_stopping = EarlyStopping(
+            monitor='val_loss',
+            patience=15,
+            restore_best_weights=True,
+            verbose=0
+        )
+        
+        # Train with validation
+        new_model.fit(
+            X_train, y_train,
+            validation_data=(X_val, y_val),
+            epochs=100,
+            batch_size=8,
+            callbacks=[early_stopping],
+            verbose=0
+        )
+        
+        # Save
+        new_model.save('intent_model.h5')
+        joblib.dump(new_vectorizer, 'vectorizer.pkl')
+        joblib.dump(new_label_encoder, 'label_encoder.pkl')
+        
+        # Reload in memory
+        reload_nlp_model()
+        print("Model training completed successfully!")
+        
     except Exception as e:
-        print(f"Unexpected error in reload_nlp_model: {e}")
+        print(f"Training failed: {e}")
 
 # ────────────────────────────────────────────────
 #          3. NLTK Download + env + Flask app
@@ -111,42 +190,62 @@ def chat():
     data = request.json
     user_message = data.get('message', '').strip()
     if not user_message:
-        return jsonify({"response": "Kuch type karo na!"})
+        return jsonify({"response": "Kuch type karo!"})
 
-    # Preprocess user input
-    user_clean = clean_text(user_message)
-    if not user_clean.strip():
+    # Preprocess same as training
+    clean = clean_text(user_message)  # Use same clean_text function (copy from notebook)
+    if not clean.strip():
         return jsonify({"response": "Sorry, samajh nahi aaya."})
 
-    user_vec = vectorizer.transform([user_clean])
-    sims = cosine_similarity(user_vec, X)[0]
-    max_sim = np.max(sims)
+    try:
+        if vectorizer is None or model is None or label_encoder is None:
+            return jsonify({"response": "Model is not trained yet. Go to Admin Panel and click 'Train AI Model'."})
 
-    if max_sim > 0.4:  # Adjust threshold if needed
-        idx = np.argmax(sims)
-        matched_intent = flat_patterns[idx]['intent']
-        response = matched_intent['response']
-    else:
-        # Fallback
-        fallback = next((i for i in intents if i['tag'] == 'fallback'), None)
-        response = fallback['response'] if fallback else "Sorry, samajh nahi aaya. Try: hi, fees, bye"
+        vec = vectorizer.transform([clean]).toarray()
+        pred = model.predict(vec, verbose=0)
+        intent_idx = np.argmax(pred)
+        confidence = float(np.max(pred))  # To show
 
-    # Log to DB
+        if confidence > 0.6:  # Higher threshold for DL
+            predicted_tag = label_encoder.inverse_transform([intent_idx])[0]
+            
+            # Get random response from responses table
+            conn = get_db_connection()
+            cursor = conn.cursor(dictionary=True)
+            cursor.execute("SELECT response_text FROM responses WHERE intent_id = (SELECT id FROM intents WHERE tag = %s) ORDER BY RAND() LIMIT 1", (predicted_tag,))
+            resp = cursor.fetchone()
+            response = resp['response_text'] if resp else "Got it!"
+            cursor.close()
+            conn.close()
+        else:
+            # Fallback
+            fallback_resp = "Sorry bhai, thoda clear bolo. Try: hi, fees, bye"
+            response = fallback_resp
+    except Exception as e:
+        print(f"Prediction error: {e}")
+        response = "Oops! Something went wrong with the AI prediction."
+        confidence = 0.0
+
+    # Log
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute(
-            "INSERT INTO chat_logs (user_message, bot_response) VALUES (%s, %s)",
-            (user_message, response)
-        )
+        cursor.execute("INSERT INTO chat_logs (user_message, bot_response) VALUES (%s, %s)", (user_message, response))
         conn.commit()
-    except Error as e:
-        print("Log error:", e)
+    except:
+        pass
     finally:
         cursor.close()
         conn.close()
 
-    return jsonify({"response": response})
+    return jsonify({"response": response, "confidence": round(confidence * 100, 2)})
+
+@app.route('/api/train', methods=['POST'])
+def trigger_training():
+    thread = threading.Thread(target=train_model_thread)
+    thread.start()
+    return jsonify({"message": "AI Model Training Started in Background! Please wait a moment."})
+
 # Your / and /admin routes go here
 
 @app.route('/')
@@ -157,6 +256,39 @@ def chat_ui():
 def admin_panel():
     return render_template('admin.html')
 
+@app.route('/chatlog')
+def chatlog_page():
+    return render_template('chatlog.html')
+
+@app.route('/api/chatlogs', methods=['GET'])
+def get_chat_logs():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        
+        # Get chat logs ordered by timestamp (newest first)
+        cursor.execute("""
+            SELECT id, user_message, bot_response, timestamp 
+            FROM chat_logs 
+            ORDER BY timestamp DESC
+        """)
+        
+        chat_logs = cursor.fetchall()
+        
+        # Format timestamp if needed
+        for log in chat_logs:
+            if log['timestamp']:
+                # Ensure timestamp is in string format
+                log['timestamp'] = str(log['timestamp'])
+        
+        return jsonify(chat_logs)
+        
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
 # ────────────────────────────────────────────────
 #          Admin Panel Routes – Intents & Patterns
 # ────────────────────────────────────────────────
@@ -166,7 +298,7 @@ def get_intents():
     try:
         conn = get_db_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM intents ORDER BY id")
+        cursor.execute("SELECT i.id, i.tag, (SELECT response_text FROM responses WHERE intent_id = i.id LIMIT 1) as response FROM intents i ORDER BY i.id")
         intents_list = cursor.fetchall()
         return jsonify(intents_list)
     except Error as e:
@@ -191,8 +323,13 @@ def add_intent():
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO intents (tag, response) VALUES (%s, %s)",
-            (tag, response)
+            "INSERT INTO intents (tag) VALUES (%s)",
+            (tag,)
+        )
+        new_id = cursor.lastrowid
+        cursor.execute(
+            "INSERT INTO responses (intent_id, response_text) VALUES (%s, %s)",
+            (new_id, response)
         )
         conn.commit()
         new_id = cursor.lastrowid
@@ -220,9 +357,17 @@ def update_intent(intent_id):
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
-            "UPDATE intents SET tag = %s, response = %s WHERE id = %s",
-            (tag, response, intent_id)
+            "UPDATE intents SET tag = %s WHERE id = %s",
+            (tag, intent_id)
         )
+        
+        # For simplicity, update the first existing response or insert if not exists
+        cursor.execute("SELECT id FROM responses WHERE intent_id = %s LIMIT 1", (intent_id,))
+        resp_row = cursor.fetchone()
+        if resp_row:
+            cursor.execute("UPDATE responses SET response_text = %s WHERE id = %s", (response, resp_row[0]))
+        else:
+            cursor.execute("INSERT INTO responses (intent_id, response_text) VALUES (%s, %s)", (intent_id, response))
         conn.commit()
         if cursor.rowcount == 0:
             return jsonify({"error": "Intent not found"}), 404
@@ -252,6 +397,20 @@ def delete_intent(intent_id):
         conn.close()
 
 # Patterns Routes
+@app.route('/admin/patterns', methods=['GET'])
+def get_patterns():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT p.id, p.intent_id, p.pattern, i.tag FROM patterns p LEFT JOIN intents i ON p.intent_id = i.id ORDER BY p.id")
+        patterns = cursor.fetchall()
+        return jsonify(patterns)
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
 @app.route('/admin/patterns', methods=['POST'])
 def add_pattern():
     if not request.is_json:
@@ -291,6 +450,99 @@ def delete_pattern(pattern_id):
             return jsonify({"error": "Pattern not found"}), 404
         reload_nlp_model()
         return jsonify({"message": "Pattern deleted"})
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
+
+@app.route('/admin/patterns/<int:pattern_id>', methods=['PUT'])
+def update_pattern(pattern_id):
+    if not request.is_json:
+        return jsonify({"error": "JSON required"}), 400
+
+    data = request.get_json()
+    pattern = data.get('pattern')
+
+    if not pattern:
+        return jsonify({"error": "Pattern text required"}), 400
+
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            "UPDATE patterns SET pattern = %s WHERE id = %s",
+            (pattern, pattern_id)
+        )
+        conn.commit()
+        if cursor.rowcount == 0:
+            return jsonify({"error": "Pattern not found"}), 404
+        reload_nlp_model()          # Important – model refresh
+        return jsonify({"message": "Pattern updated"})
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
+# ────────────────────────────────────────────────
+#          Admin Panel Routes – Responses
+# ────────────────────────────────────────────────
+
+@app.route('/admin/responses/<int:intent_id>', methods=['GET'])
+def get_responses(intent_id):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        cursor.execute("SELECT id, response_text FROM responses WHERE intent_id = %s ORDER BY id", (intent_id,))
+        responses = cursor.fetchall()
+        return jsonify(responses)
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
+@app.route('/admin/responses', methods=['POST'])
+def add_response():
+    if not request.is_json:
+        return jsonify({"error": "JSON required"}), 400
+    
+    data = request.get_json()
+    intent_id = data.get('intent_id')
+    response_text = data.get('response_text')
+    
+    if not intent_id or not response_text:
+        return jsonify({"error": "intent_id and response_text required"}), 400
+    
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO responses (intent_id, response_text) VALUES (%s, %s)",
+            (intent_id, response_text)
+        )
+        conn.commit()
+        reload_nlp_model()
+        return jsonify({"message": "Response added"}), 201
+    except Error as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
+@app.route('/admin/responses/<int:response_id>', methods=['DELETE'])
+def delete_response(response_id):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM responses WHERE id = %s", (response_id,))
+        conn.commit()
+        if cursor.rowcount == 0:
+            return jsonify({"error": "Response not found"}), 404
+        reload_nlp_model()
+        return jsonify({"message": "Response deleted"})
     except Error as e:
         return jsonify({"error": str(e)}), 500
     finally:

@@ -1,39 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Manage Intents & Patterns | RuleBot</title>
 
     <style>
-        body { background: #f8f9fa; font-family: Arial, sans-serif; }
-        .chat-container { max-width: 1000px; margin: 20px auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-        h2 { background: #343a40; color: white; padding: 15px; text-align: center; border-radius: 8px 8px 0 0; margin: -20px -20px 20px -20px; }
-        h3 { color: #333; margin-top: 30px; }
-        .form-container { background: #fff; padding: 20px; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0; }
-        input, textarea, select {
-            width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ced4da; border-radius: 6px; box-sizing: border-box;
+        body {
+            background: #f8f9fa;
+            font-family: Arial, sans-serif;
         }
+
+        .chat-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            background: #343a40;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 20px -20px;
+        }
+
+        h3 {
+            color: #333;
+            margin-top: 30px;
+        }
+
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
         button {
-            padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
         }
-        button:hover { background: #218838; }
-        .delete-btn { background: #dc3545; }
-        .delete-btn:hover { background: #c82333; }
+
+        button:hover {
+            background: #218838;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
         table {
-            width: 100%; border-collapse: collapse; margin: 15px 0; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
-        th, td { border: 1px solid #dee2e6; padding: 12px; text-align: left; }
-        th { background: #007bff; color: white; }
-        td[contenteditable="true"] { background: #fff3cd; cursor: text; }
-        td[contenteditable="true"]:focus { outline: 2px solid #007bff; }
-        .actions button { margin-right: 8px; padding: 6px 12px; font-size: 0.9rem; }
-        .back-link { display: block; text-align: center; margin: 40px 0; font-size: 1.1rem; color: #007bff; text-decoration: none; }
+
+        th,
+        td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+        }
+
+        td[contenteditable="true"] {
+            background: #fff3cd;
+            cursor: text;
+        }
+
+        td[contenteditable="true"]:focus {
+            outline: 2px solid #007bff;
+        }
+
+        .actions button {
+            margin-right: 8px;
+            padding: 6px 12px;
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin: 40px 0;
+            font-size: 1.1rem;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        #patterns-table th {
+            background: #6c757d;
+        }
+
+        /* grey header for patterns */
+        #responses-table th {
+            background: #28a745;
+        }
+
+        /* green header for responses */
     </style>
 </head>
+
 <body>
     <div class="chat-container">
         <h2>Admin Panel – Manage Intents & Patterns</h2>
+
+        <div style="text-align: right; margin-bottom: 20px;">
+            <button id="train-btn" onclick="trainModel()" style="background: #ff9800;">🧠 Train AI Model</button>
+        </div>
 
         <!-- Manage Intents -->
         <div class="form-container">
@@ -49,7 +155,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Tag</th>
-                    <th>Response</th>
+                    <th>Responses (Count)</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -64,7 +170,48 @@
             <button onclick="addPattern()">Add Pattern</button>
         </div>
 
+        <!-- Show & Edit Patterns -->
+        <h3>All Patterns</h3>
+        <table id="patterns-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Intent Tag</th>
+                    <th>Pattern</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <!-- Add Response -->
+        <div class="form-container">
+            <h3>Add Response to Intent</h3>
+            <select id="response_intent_select" style="margin-bottom: 12px;"></select>
+            <textarea id="new_response" placeholder="New response text (e.g. Yes definitely!)" rows="3"></textarea>
+            <button onclick="addResponse()">Add Response</button>
+        </div>
+
+        <!-- Show Responses -->
+        <h3>All Responses</h3>
+        <table id="responses-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Intent ID</th>
+                    <th>Response Text</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
         <a href="/" class="back-link">← Go to Chat Page</a>
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="/chatlog" class="nav-link"
+                style="display: inline-block; padding: 8px 16px; margin: 0 10px; text-decoration: none; color: #0969da; border-radius: 6px; background: #f0f6ff;">📝
+                Chat History</a>
+        </div>
     </div>
 
     <script>
@@ -74,31 +221,100 @@
                 .then(intents => {
                     const tbody = document.querySelector('#intents-table tbody');
                     const select = document.getElementById('intent_select');
-                    
+
                     tbody.innerHTML = '';
                     select.innerHTML = '<option value="">Select Intent...</option>';
 
                     intents.forEach(intent => {
-                        // Table row for intents
-                        const tr = document.createElement('tr');
-                        tr.innerHTML = `
-                            <td>${intent.id}</td>
-                            <td contenteditable="true" id="tag-${intent.id}">${intent.tag}</td>
-                            <td contenteditable="true" id="resp-${intent.id}">${intent.response}</td>
-                            <td class="actions">
-                                <button onclick="updateIntent(${intent.id})">Update</button>
-                                <button class="delete-btn" onclick="deleteIntent(${intent.id})">Delete</button>
-                            </td>`;
-                        tbody.appendChild(tr);
+                        // Count responses for this intent
+                        fetch(`/admin/responses/${intent.id}`)
+                            .then(res => res.json())
+                            .then(responses => {
+                                const responseCount = responses.length;
 
-                        // Dropdown for adding patterns
-                        const opt = document.createElement('option');
-                        opt.value = intent.id;
-                        opt.textContent = `${intent.tag} (ID: ${intent.id})`;
-                        select.appendChild(opt);
+                                // Table row for intents
+                                const tr = document.createElement('tr');
+                                tr.innerHTML = `
+                                    <td>${intent.id}</td>
+                                    <td contenteditable="true" id="tag-${intent.id}">${intent.tag}</td>
+                                    <td>${responseCount} response(s)</td>
+                                    <td class="actions">
+                                        <button onclick="updateIntent(${intent.id})">Update</button>
+                                        <button class="delete-btn" onclick="deleteIntent(${intent.id})">Delete</button>
+                                    </td>`;
+                                tbody.appendChild(tr);
+
+                                // Dropdown for adding patterns
+                                const opt = document.createElement('option');
+                                opt.value = intent.id;
+                                opt.textContent = `${intent.tag} (ID: ${intent.id})`;
+                                select.appendChild(opt);
+                            })
+                            .catch(err => console.error(`Failed to count responses for intent ${intent.id}:`, err));
                     });
+
+                    // ────────────────────────────────────────────────
+                    // Fetch patterns separately (your requested code #1)
+                    // ────────────────────────────────────────────────
+                    fetch('/admin/patterns')
+                        .then(res => res.json())
+                        .then(patterns => {
+                            const tbody = document.querySelector('#patterns-table tbody');
+                            tbody.innerHTML = '';
+
+                            patterns.forEach(pat => {
+                                const tr = document.createElement('tr');
+                                tr.innerHTML = `
+                                    <td>${pat.id}</td>
+                                    <td>${pat.tag}</td>
+                                    <td contenteditable="true" id="pat-${pat.id}">${pat.pattern}</td>
+                                    <td class="actions">
+                                        <button onclick="updatePattern(${pat.id})">Update</button>
+                                        <button class="delete-btn" onclick="deletePattern(${pat.id})">Delete</button>
+                                    </td>`;
+                                tbody.appendChild(tr);
+                            });
+                        })
+                        .catch(err => console.error("Failed to load patterns:", err));
+
+                    // Load responses
+                    loadAllResponses(intents);
+
                 })
                 .catch(err => console.error("Failed to load intents:", err));
+        }
+
+        function loadAllResponses(intents) {
+            const tbody = document.querySelector('#responses-table tbody');
+            const select = document.getElementById('response_intent_select');
+            tbody.innerHTML = '';
+            select.innerHTML = '<option value="">Select Intent...</option>';
+
+            intents.forEach(intent => {
+                // Populate dropdown
+                const opt = document.createElement('option');
+                opt.value = intent.id;
+                opt.textContent = `${intent.tag} (ID: ${intent.id})`;
+                select.appendChild(opt);
+
+                // Fetch responses for this intent
+                fetch(`/admin/responses/${intent.id}`)
+                    .then(res => res.json())
+                    .then(responses => {
+                        responses.forEach(resp => {
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                                <td>${resp.id}</td>
+                                <td>${intent.id} (${intent.tag})</td>
+                                <td>${resp.response_text}</td>
+                                <td class="actions">
+                                    <button class="delete-btn" onclick="deleteResponse(${resp.id})">Delete</button>
+                                </td>`;
+                            tbody.appendChild(tr);
+                        });
+                    })
+                    .catch(err => console.error(`Failed to load responses for intent ${intent.id}:`, err));
+            });
         }
 
         function addIntent() {
@@ -111,33 +327,32 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ tag, response })
             })
-            .then(res => {
-                if (!res.ok) throw new Error("Add intent failed");
-                return res.json();
-            })
-            .then(() => {
-                loadIntents();
-                document.getElementById('intent_tag').value = '';
-                document.getElementById('intent_response').value = '';
-                alert("Intent added!");
-            })
-            .catch(err => alert("Error: " + err.message));
+                .then(res => {
+                    if (!res.ok) throw new Error("Add intent failed");
+                    return res.json();
+                })
+                .then(() => {
+                    loadIntents();
+                    document.getElementById('intent_tag').value = '';
+                    document.getElementById('intent_response').value = '';
+                    alert("Intent added!");
+                })
+                .catch(err => alert("Error: " + err.message));
         }
 
         function updateIntent(id) {
             const tag = document.getElementById(`tag-${id}`).textContent.trim();
-            const response = document.getElementById(`resp-${id}`).textContent.trim();
 
             fetch(`/admin/intents/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ tag, response })
+                body: JSON.stringify({ tag, response: "" })  
             })
-            .then(res => {
-                if (!res.ok) throw new Error("Update failed");
-                alert("Intent updated successfully!");
-            })
-            .catch(err => alert("Error updating intent: " + err.message));
+                .then(res => {
+                    if (!res.ok) throw new Error("Update failed");
+                    alert("Intent tag updated successfully!");
+                })
+                .catch(err => alert("Error updating intent: " + err.message));
         }
 
         function deleteIntent(id) {
@@ -163,19 +378,107 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ intent_id: parseInt(intent_id), pattern })
             })
-            .then(res => {
-                if (!res.ok) throw new Error("Add pattern failed");
-                return res.json();
+                .then(res => {
+                    if (!res.ok) throw new Error("Add pattern failed");
+                    return res.json();
+                })
+                .then(() => {
+                    document.getElementById('new_pattern').value = '';
+                    loadIntents();          // ← refresh both tables after adding pattern
+                    alert("Pattern added successfully!");
+                })
+                .catch(err => alert("Error adding pattern: " + err.message));
+        }
+
+        // ────────────────────────────────────────────────
+        // Update Pattern function (your requested code #2)
+        // ────────────────────────────────────────────────
+        function updatePattern(id) {
+            const patternText = document.getElementById(`pat-${id}`).textContent.trim();
+            if (!patternText) return alert("Pattern khali nahi ho sakta");
+
+            fetch(`/admin/patterns/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pattern: patternText })
             })
-            .then(() => {
-                document.getElementById('new_pattern').value = '';
-                alert("Pattern added successfully!");
+                .then(res => {
+                    if (!res.ok) throw new Error("Update failed");
+                    alert("Pattern updated!");
+                })
+                .catch(err => alert("Error updating pattern: " + err.message));
+        }
+
+        function deletePattern(id) {
+            if (!confirm("Delete this pattern?")) return;
+
+            fetch(`/admin/patterns/${id}`, { method: 'DELETE' })
+                .then(res => {
+                    if (!res.ok) throw new Error("Delete failed");
+                    loadIntents();          // refresh tables
+                    alert("Pattern deleted!");
+                })
+                .catch(err => alert("Error deleting pattern: " + err.message));
+        }
+
+        function addResponse() {
+            const intent_id = document.getElementById('response_intent_select').value;
+            const response_text = document.getElementById('new_response').value.trim();
+
+            if (!intent_id || !response_text) return alert("Intent select karo aur response likho");
+
+            fetch('/admin/responses', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ intent_id: parseInt(intent_id), response_text })
             })
-            .catch(err => alert("Error adding pattern: " + err.message));
+                .then(res => {
+                    if (!res.ok) throw new Error("Add response failed");
+                    return res.json();
+                })
+                .then(() => {
+                    document.getElementById('new_response').value = '';
+                    loadIntents();
+                    alert("Response added successfully!");
+                })
+                .catch(err => alert("Error adding response: " + err.message));
+        }
+
+        function deleteResponse(id) {
+            if (!confirm("Delete this response?")) return;
+
+            fetch(`/admin/responses/${id}`, { method: 'DELETE' })
+                .then(res => {
+                    if (!res.ok) throw new Error("Delete failed");
+                    loadIntents();
+                    alert("Response deleted!");
+                })
+                .catch(err => alert("Error deleting response: " + err.message));
+        }
+
+        function trainModel() {
+            const btn = document.getElementById('train-btn');
+            btn.textContent = "Training... Please wait";
+            btn.disabled = true;
+
+            fetch('/api/train', { method: 'POST' })
+                .then(res => res.json())
+                .then(data => {
+                    alert(data.message);
+                    btn.textContent = "🧠 Train AI Model";
+                    btn.disabled = false;
+                })
+                .catch(err => {
+                    alert("Error starting training.");
+                    btn.textContent = "🧠 Train AI Model";
+                    btn.disabled = false;
+                });
         }
 
         // Load on page open
         window.onload = loadIntents;
     </script>
+
 </body>
+
 </html>

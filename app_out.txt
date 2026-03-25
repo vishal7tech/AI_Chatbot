@@ -1,0 +1,349 @@
+2026-02-22 13:42:13.842509: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-02-22 13:42:18.939259: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-02-22 13:42:21.512739: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+NLP Models loaded successfully from disk!
+NLP Models loaded successfully from disk!
+ * Serving Flask app 'app'
+ * Debug mode: on
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+2026-02-22 13:42:27.806985: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-02-22 13:42:33.005780: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-02-22 13:42:35.521793: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 635-452-155
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:42:36] "POST /api/train HTTP/1.1" 200 -
+C:\Users\ACER\OneDrive\Desktop\Project\rule_based_chatbot\venv\Lib\site-packages\keras\src\layers\core\dense.py:106: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:43:36] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:46:37] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:46:37] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:46:37] "GET /static/js/chat.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:46:38] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:46:38] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:46:38] "[36mGET /static/js/chat.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:46:38] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:46:38] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:46:38] "[36mGET /static/js/chat.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:46:38] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:46:38] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:46:38] "[36mGET /static/js/chat.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:46:47] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:46:49] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:19] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:19] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:19] "[36mGET /static/js/chat.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:23] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:25] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:32] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:32] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:32] "[36mGET /static/js/chat.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:34] "GET /admin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:34] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:34] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:34] "GET /admin/responses/14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:34] "GET /admin/responses/13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:34] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:42] "POST /api/train HTTP/1.1" 200 -
+C:\Users\ACER\OneDrive\Desktop\Project\rule_based_chatbot\venv\Lib\site-packages\keras\src\layers\core\dense.py:106: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:50] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:47:51] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:48:11] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:48:15] "POST /chat HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:48:58] "DELETE /admin/responses/8 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:48:58] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:00] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:00] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:00] "GET /admin/responses/13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:00] "GET /admin/responses/14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:08] "POST /chat HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:13] "DELETE /admin/patterns/88 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:13] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:14] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:14] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:14] "GET /admin/responses/13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:14] "GET /admin/responses/14 HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:17] "DELETE /admin/intents/14 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:17] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:18] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:18] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:18] "GET /admin/responses/13 HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:33] "[35m[1mPOST /admin/intents HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:33] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:34] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:34] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:34] "GET /admin/responses/15 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:34] "GET /admin/responses/13 HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:41] "[35m[1mPOST /admin/patterns HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:41] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:43] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:43] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:43] "GET /admin/responses/13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:49:43] "GET /admin/responses/15 HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:01] "[35m[1mPOST /admin/patterns HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:01] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:02] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:02] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:02] "GET /admin/responses/13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:02] "GET /admin/responses/15 HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:11] "[35m[1mPOST /admin/patterns HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:11] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:12] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:12] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:12] "GET /admin/responses/13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:12] "GET /admin/responses/15 HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:19] "[35m[1mPOST /admin/patterns HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:19] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:20] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:20] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:20] "GET /admin/responses/13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:20] "GET /admin/responses/15 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:50:43] "POST /api/train HTTP/1.1" 200 -
+C:\Users\ACER\OneDrive\Desktop\Project\rule_based_chatbot\venv\Lib\site-packages\keras\src\layers\core\dense.py:106: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:51:05] "POST /api/train HTTP/1.1" 200 -
+C:\Users\ACER\OneDrive\Desktop\Project\rule_based_chatbot\venv\Lib\site-packages\keras\src\layers\core\dense.py:106: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:51:17] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:51:22] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:51:53] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:52:02] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:52:23] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:52:30] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:53:03] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:53:09] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:53:16] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:53:35] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:53:41] "POST /chat HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:19] "[35m[1mPOST /admin/intents HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:19] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:20] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:20] "GET /admin/responses/13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:20] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:20] "GET /admin/responses/16 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:20] "GET /admin/responses/15 HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:46] "[35m[1mPOST /admin/patterns HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:46] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:47] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:47] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:47] "GET /admin/responses/13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:47] "GET /admin/responses/15 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:47] "GET /admin/responses/16 HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:53] "[35m[1mPOST /admin/patterns HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:53] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:54] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:54] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:54] "GET /admin/responses/13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:54] "GET /admin/responses/15 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:54:54] "GET /admin/responses/16 HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:55:00] "[35m[1mPOST /admin/patterns HTTP/1.1[0m" 201 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:55:00] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:55:02] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:55:02] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:55:02] "GET /admin/responses/13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:55:02] "GET /admin/responses/15 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:55:02] "GET /admin/responses/16 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:55:09] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:55:11] "POST /api/train HTTP/1.1" 200 -
+C:\Users\ACER\OneDrive\Desktop\Project\rule_based_chatbot\venv\Lib\site-packages\keras\src\layers\core\dense.py:106: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:55:17] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:55:25] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:55:32] "POST /api/train HTTP/1.1" 200 -
+C:\Users\ACER\OneDrive\Desktop\Project\rule_based_chatbot\venv\Lib\site-packages\keras\src\layers\core\dense.py:106: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:55:37] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:55:49] "POST /api/train HTTP/1.1" 200 -
+C:\Users\ACER\OneDrive\Desktop\Project\rule_based_chatbot\venv\Lib\site-packages\keras\src\layers\core\dense.py:106: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+WARNING:tensorflow:5 out of the last 16 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x00000150EBA63920> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:5 out of the last 16 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x00000150EBA63920> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:56:07] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:56:12] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:56:14] "POST /api/train HTTP/1.1" 200 -
+C:\Users\ACER\OneDrive\Desktop\Project\rule_based_chatbot\venv\Lib\site-packages\keras\src\layers\core\dense.py:106: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:56:18] "GET /admin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:56:18] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:56:18] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:56:18] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:56:18] "GET /admin/responses/13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:56:18] "GET /admin/responses/15 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:56:18] "GET /admin/responses/16 HTTP/1.1" 200 -
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:56:21] "POST /api/train HTTP/1.1" 200 -
+C:\Users\ACER\OneDrive\Desktop\Project\rule_based_chatbot\venv\Lib\site-packages\keras\src\layers\core\dense.py:106: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+WARNING:tensorflow:6 out of the last 18 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x00000150F46BE520> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:6 out of the last 18 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x00000150F46BE520> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:56:38] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:56:39] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:56:56] "POST /api/train HTTP/1.1" 200 -
+C:\Users\ACER\OneDrive\Desktop\Project\rule_based_chatbot\venv\Lib\site-packages\keras\src\layers\core\dense.py:106: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:57:11] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:57:12] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:57:14] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:57:14] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:57:14] "[36mGET /static/js/chat.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:57:17] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:57:21] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:57:31] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:57:45] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:57:52] "POST /chat HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:09] "PUT /admin/patterns/95 HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:10] "PUT /admin/patterns/93 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:12] "GET /admin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:12] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:12] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:12] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:12] "GET /admin/responses/16 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:12] "GET /admin/responses/15 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:12] "GET /admin/responses/13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:21] "POST /api/train HTTP/1.1" 200 -
+C:\Users\ACER\OneDrive\Desktop\Project\rule_based_chatbot\venv\Lib\site-packages\keras\src\layers\core\dense.py:106: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:26] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:30] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:36] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:39] "GET /admin HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:39] "GET /admin/intents HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:39] "GET /admin/patterns HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:39] "GET /admin/responses/12 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:39] "GET /admin/responses/13 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:39] "GET /admin/responses/15 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:39] "GET /admin/responses/16 HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:45] "PUT /admin/patterns/95 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:53] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:58:58] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:59:02] "POST /api/train HTTP/1.1" 200 -
+C:\Users\ACER\OneDrive\Desktop\Project\rule_based_chatbot\venv\Lib\site-packages\keras\src\layers\core\dense.py:106: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:59:09] "POST /chat HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:59:21] "PUT /admin/patterns/95 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:59:24] "POST /api/train HTTP/1.1" 200 -
+C:\Users\ACER\OneDrive\Desktop\Project\rule_based_chatbot\venv\Lib\site-packages\keras\src\layers\core\dense.py:106: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:59:30] "POST /chat HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:59:37] "POST /chat HTTP/1.1" 200 -
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:59:42] "PUT /admin/patterns/93 HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:59:43] "[33mPUT /admin/patterns/95 HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:59:46] "POST /api/train HTTP/1.1" 200 -
+C:\Users\ACER\OneDrive\Desktop\Project\rule_based_chatbot\venv\Lib\site-packages\keras\src\layers\core\dense.py:106: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+INFO:werkzeug:127.0.0.1 - - [22/Feb/2026 13:59:51] "POST /chat HTTP/1.1" 200 -
+WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `keras.saving.save_model(model)`. This file format is considered legacy. We recommend using instead the native Keras format, e.g. `model.save('my_model.keras')` or `keras.saving.save_model(model, 'my_model.keras')`. 
+WARNING:absl:Compiled the loaded model, but the compiled metrics have yet to be built. `model.compile_metrics` will be empty until you train or evaluate the model.
+INFO:werkzeug: * Detected change in 'C:\\Users\\ACER\\OneDrive\\Desktop\\Project\\rule_based_chatbot\\app.py', reloading
+NLP Models loaded successfully from disk!
+NLP Models loaded successfully from disk!
+Starting AI model training...
+NLP Models loaded successfully from disk!
+Model training completed successfully!
+Starting AI model training...
+NLP Models loaded successfully from disk!
+Model training completed successfully!
+NLP Models loaded successfully from disk!
+NLP Models loaded successfully from disk!
+NLP Models loaded successfully from disk!
+NLP Models loaded successfully from disk!
+NLP Models loaded successfully from disk!
+NLP Models loaded successfully from disk!
+NLP Models loaded successfully from disk!
+NLP Models loaded successfully from disk!
+Starting AI model training...
+NLP Models loaded successfully from disk!
+Model training completed successfully!
+Starting AI model training...
+NLP Models loaded successfully from disk!
+Model training completed successfully!
+NLP Models loaded successfully from disk!
+NLP Models loaded successfully from disk!
+NLP Models loaded successfully from disk!
+NLP Models loaded successfully from disk!
+Starting AI model training...
+NLP Models loaded successfully from disk!
+Model training completed successfully!
+Starting AI model training...
+NLP Models loaded successfully from disk!
+Model training completed successfully!
+Starting AI model training...
+NLP Models loaded successfully from disk!
+Model training completed successfully!
+Starting AI model training...
+NLP Models loaded successfully from disk!
+Model training completed successfully!
+Starting AI model training...
+NLP Models loaded successfully from disk!
+Model training completed successfully!
+Starting AI model training...
+NLP Models loaded successfully from disk!
+Model training completed successfully!
+NLP Models loaded successfully from disk!
+NLP Models loaded successfully from disk!
+Starting AI model training...
+NLP Models loaded successfully from disk!
+Model training completed successfully!
+NLP Models loaded successfully from disk!
+Starting AI model training...
+NLP Models loaded successfully from disk!
+Model training completed successfully!
+NLP Models loaded successfully from disk!
+Starting AI model training...
+NLP Models loaded successfully from disk!
+Model training completed successfully!
+NLP Models loaded successfully from disk!
+Starting AI model training...
+NLP Models loaded successfully from disk!
+Model training completed successfully!
